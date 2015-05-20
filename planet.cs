@@ -37,6 +37,15 @@ namespace Swarm
      
         #region Constructors
 
+        //testing planet
+        public Planet(Texture2D planetSprite, int x, int y)
+        {
+            //sprite to use for planet image
+            this.planetSprite = planetSprite;
+
+            InitializeDrawRectangle(planetSprite, x, y);
+        }
+        
         //starting home planet
         public Planet(int shipNumber, int maxShipNumber, int shipProductionRate, Texture2D planetSprite, int x, int y) 
         {
@@ -61,26 +70,26 @@ namespace Swarm
 
 
 
-        //neutral planets
-        public Planet(int shipNumber, int maxShipNumber, int shipProductionRate, Texture2D planetSprite, int x, int y)
-        {
-            // Number of Ships orbiting planet at start
-            this.shipNumber = startingShipNumber;
+        ////neutral planets
+        //public Planet(int shipNumber, int maxShipNumber, int shipProductionRate, Texture2D planetSprite, int x, int y)
+        //{
+        //    // Number of Ships orbiting planet at start
+        //    this.shipNumber = startingShipNumber;
 
-            // maximum number of ships in orbit which disables further production
-            this.maxShipNumber = maxShipNumber;
+        //    // maximum number of ships in orbit which disables further production
+        //    this.maxShipNumber = maxShipNumber;
 
-            // Number of ships per second produced if beneath max supply limit
-            this.shipProductionRate = shipProductionRate;
+        //    // Number of ships per second produced if beneath max supply limit
+        //    this.shipProductionRate = shipProductionRate;
 
-            this.planetSprite = planetSprite;
-            InitializeDrawRectangle(planetSprite, x, y);
+        //    this.planetSprite = planetSprite;
+        //    InitializeDrawRectangle(planetSprite, x, y);
 
-            for (int i = shipNumber; i < maxShipNumber; i++)
-            {
-                //every second add one to shipNumber until shipNumber == maxShipNumber
-            }
-        }
+        //    for (int i = shipNumber; i < maxShipNumber; i++)
+        //    {
+        //        //every second add one to shipNumber until shipNumber == maxShipNumber
+        //    }
+        //}
         #endregion
 
         #region Properties
@@ -102,6 +111,17 @@ namespace Swarm
 
         #region Methods
         
+        /// <summary>
+        /// Draws the planet
+        /// </summary>
+        /// <param name="spriteBatch">the sprite batch to use</param>
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            
+            spriteBatch.Draw(planetSprite, drawRectangle, Color.White);
+            
+        }
+
         #endregion
 
         #region Private methods
@@ -119,7 +139,11 @@ namespace Swarm
             // load content and set remainder of draw rectangle
             planetSprite = contentManager.Load<Texture2D>(spriteName);
             InitializeDrawRectangle(planetSprite, x, y);
+            Planet planet0;
+            planet0 = contentManager.Load<Planet>("planet0");
         }
+        
+       
 
         /// <summary>
         /// Initializes the draw rectangle
@@ -127,11 +151,12 @@ namespace Swarm
         /// <param name="sprite">the sprite for the planet</param>
         /// <param name="x">the x location of the center of the planet</param>
         /// <param name="y">the y location of the center of the planet</param>
-        private void InitializeDrawRectangle(Texture2D sprite, int x, int y)
+        private void InitializeDrawRectangle(Texture2D planetSprite, int x, int y)
         {
-            drawRectangle = new Rectangle(x - sprite.Width / 2,
-                y - sprite.Height / 2, sprite.Width,
-                sprite.Height);
+            drawRectangle = new Rectangle(x - planetSprite.Width / 2,
+                y - planetSprite.Height / 2, planetSprite.Width,
+                planetSprite.Height);
         }
+        #endregion
     }
 }
