@@ -21,7 +21,11 @@ namespace Swarm
         const int WINDOW_WIDTH = 800;
         const int WINDOW_HEIGHT = 600;
 
-        List<Texture2D> planetSprites = new List<Texture2D>(); 
+        List<Texture2D> planetSprites = new List<Texture2D>();
+
+        List<Planet> planets = new List<Planet>();
+
+        Planet planet0;
 
         Random rand = new Random();
 
@@ -64,35 +68,50 @@ namespace Swarm
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            //planetSprites.Add(Content.Load<Texture2D>("planet0"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet1")); 
-            //planetSprites.Add(Content.Load<Texture2D>("planet2"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet3"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet4"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet5"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet6"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet7"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet8"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet9"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet10"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet11"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet12"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet13"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet14"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet15"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet16"));
-            //planetSprites.Add(Content.Load<Texture2D>("planet17"));
+            planetSprites.Add(Content.Load<Texture2D>("planet0"));
+            planetSprites.Add(Content.Load<Texture2D>("planet1"));
+            planetSprites.Add(Content.Load<Texture2D>("planet2"));
+            planetSprites.Add(Content.Load<Texture2D>("planet3"));
+            planetSprites.Add(Content.Load<Texture2D>("planet4"));
+            planetSprites.Add(Content.Load<Texture2D>("planet5"));
+            planetSprites.Add(Content.Load<Texture2D>("planet6"));
+            planetSprites.Add(Content.Load<Texture2D>("planet7"));
+            planetSprites.Add(Content.Load<Texture2D>("planet8"));
+            planetSprites.Add(Content.Load<Texture2D>("planet9"));
+            planetSprites.Add(Content.Load<Texture2D>("planet10"));
+            planetSprites.Add(Content.Load<Texture2D>("planet11"));
+            planetSprites.Add(Content.Load<Texture2D>("planet12"));
+            planetSprites.Add(Content.Load<Texture2D>("planet13"));
+            planetSprites.Add(Content.Load<Texture2D>("planet14"));
+            planetSprites.Add(Content.Load<Texture2D>("planet15"));
+            planetSprites.Add(Content.Load<Texture2D>("planet16"));
+            planetSprites.Add(Content.Load<Texture2D>("planet17"));
 
-            for (int i = 0; i < PLANET_NUMBER; i++)
-            {
-                planetSprites.Add(Content.Load<Texture2D>("planet" + i));
-            }
 
-            //Planet homePlanet = new Planet();
-            //Planet neutralPlanet0 = new Planet(10, 10, 5000);
-            //Planet neutralPlanet1 = new Planet(10, 10, 1000);
-            //Planet neutralPlanet2 = new Planet(10, 50, 5000);
-            //Planet enemyHomePlanet = new Planet();
+            //loading planetSprites
+            //for (int i = 0; i < PLANET_NUMBER; i++)
+            //{
+            //    planetSprites.Add(Content.Load<Texture2D>("planet" + i));
+            //}
+
+            //for (int i = 0; i < 1; i++)
+            //{
+            //    planets.Add(Content.Load<Planet>("planet" + i));
+            //}
+
+            planet0 = GetTestingPlanet();
+            
+            //loading planet
+            //planets.Add(Content.Load<Planet>("planet0"));
+
+
+            //Texture2D planetSprite = planetSprites[rand.Next(18)];
+
+            
+            //Planet planet1 = new Planet();
+            //Planet planet2 = new Planet();
+            //Planet planet3 = new Planet();
+            //Planet planet4 = new Planet();
 
         }
 
@@ -117,7 +136,7 @@ namespace Swarm
                 this.Exit();
 
             // TODO: Add your update logic here
-
+            //planet0.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -128,19 +147,33 @@ namespace Swarm
         protected override void Draw(GameTime gameTime)
         {
 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            //GraphicsDevice.Clear(Color.Black);
+            //GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
+
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            //foreach (Texture2D planetSprite in planetSprites)
+            
+            planet0.Draw(spriteBatch); 
+
+            //foreach (Planet planet in planets)
             //{
-            //    planetSprite.Draw();
+            //    planet.Draw(spriteBatch);
             //}
 
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
+        /// <summary>
+        /// Gets a planet
+        /// </summary>
+        /// <returns>a testing planet</returns>
+        private Planet GetTestingPlanet()
+        {
+            Texture2D planetSprite = planetSprites[rand.Next(18)];
+            return new Planet(planetSprite, 400, 300);
+        }
+
     }
 }
