@@ -20,11 +20,15 @@ namespace Swarm
         /// <summary>
         /// Fields
         /// </summary>
+
+        bool active = true;
+
+        // ship spawn support
         int startingShipNumber = 10;
         int maxShipNumber = 50;
         int shipProductionRate = 1000;
         int shipNumber;
-        int gameTimeElapsed = 0;
+       
 
         //random generator for the class
         static Random rand = new Random();
@@ -46,7 +50,15 @@ namespace Swarm
             InitializeDrawRectangle(planetSprite, x, y);
         }
         
-        //starting home planet
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="shipNumber">starting number of ships</param>
+        /// <param name="maxShipNumber">max number of ships before spawning is disabled</param>
+        /// <param name="shipProductionRate">number of milliseconds before new ship is spawned</param>
+        /// <param name="planetSprite">sprite</param>
+        /// <param name="x">x position of center</param>
+        /// <param name="y">y position of center</param>
         public Planet(int shipNumber, int maxShipNumber, int shipProductionRate, Texture2D planetSprite, int x, int y) 
         {
             // Number of Ships orbiting planet at start
@@ -94,13 +106,33 @@ namespace Swarm
 
         #region Properties
 
-        // gets the number of ships in orbit at start
+        /// <Summary>
+        /// gets and sets if ship spawning is active
+        /// </Summary>
+        public bool Active 
+        {
+            get { return active; }
+            set { active = value; }
+        }
+        /// <Summary>
+        ///gets draw rectangle
+        /// </Summary>
+        public Rectangle DrawRectangle 
+        {
+            get { return drawRectangle; }
+        }
+
+        /// <Summary>
+        ///gets the number of ships in orbit at start
+        /// </Summary>
         public int StartingShipNumber 
         {
             get { return startingShipNumber; } 
         }
 
-        //gets the maximum ships in orbit for the planet
+        /// <Summary>
+        ///gets the maximum ships in orbit for the planet
+        /// </Summary>
         public int MaxShipNumber 
         {
             get { return maxShipNumber; }
@@ -110,7 +142,25 @@ namespace Swarm
         #endregion
 
         #region Methods
-        
+
+       /// <summary>
+       /// Updates the planet
+       /// </summary>
+       /// <param name="gameTime"></param>
+        /// <param name="mouse"></param>
+        public void Update(GameTime gameTime, MouseState mouse)
+        {
+            // add 
+            if (shipNumber > maxShipNumber) 
+            {
+                shipNumber += gameTime.ElapsedGameTime.Milliseconds / shipProductionRate;
+                Console.WriteLine(shipNumber);
+            }
+
+
+        }
+
+    
         /// <summary>
         /// Draws the planet
         /// </summary>
@@ -139,8 +189,7 @@ namespace Swarm
             // load content and set remainder of draw rectangle
             planetSprite = contentManager.Load<Texture2D>(spriteName);
             InitializeDrawRectangle(planetSprite, x, y);
-            Planet planet0;
-            planet0 = contentManager.Load<Planet>("planet0");
+            
         }
         
        
