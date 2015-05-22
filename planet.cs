@@ -27,6 +27,7 @@ namespace Swarm
         int startingShipNumber = 10;
         int maxShipNumber = 50;
         int shipProductionRate = 1000;
+        int elapsedSpawnMilliseconds = 0;
         int shipNumber;
        
 
@@ -150,13 +151,25 @@ namespace Swarm
         /// <param name="mouse"></param>
         public void Update(GameTime gameTime, MouseState mouse)
         {
-            // add 
+            // spawn new ships
+            elapsedSpawnMilliseconds += gameTime.ElapsedGameTime.Milliseconds;
+
             if (shipNumber > maxShipNumber) 
             {
-                shipNumber += gameTime.ElapsedGameTime.Milliseconds / shipProductionRate;
-                Console.WriteLine(shipNumber);
+                if (elapsedSpawnMilliseconds >= shipProductionRate)
+                {
+                    elapsedSpawnMilliseconds = 0;
+                    
+                    // spawn new ship
+                    shipNumber++;
+                }
             }
 
+            // mouse hover and click support 
+            // add code to display number of active ships and maxShipNumber when planet drawRectangle contains mouse pointer
+            // add code to select number of ships with three click system first click activates 
+            //second click distance from center of sprite = % of ships selected 
+            //third click on other planet sends ships
 
         }
 
